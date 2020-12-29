@@ -7,7 +7,7 @@
 3. 최종적으로 트레이딩의 결과를 손쉽게 GUI Visualization이 가능하도록 로그 인터페이스를 개발한다.
 
 ### 주요 기능
-1. 멀티 프로세스 지원
+1. 멀티 프로세스 지원 (for load-balancing)
 2. BRK_MESSAGE 지원
 
 ### 지원 환경
