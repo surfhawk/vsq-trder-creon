@@ -1,0 +1,16 @@
+#pydis broker
+requests>=2.23.0
+marshmallow>=3.5.0
+marshmallow-enum>=1.5.1
+dataclasses-json>=0.4.1
+numpy>=1.18.2
+pandas>=1.0.1
+PyYAML>=5.3
+zmq>=0.0.0
+pyzmq>=19.0.0
+pywin32>=227
+#pycrypto>=2.6.1
+pycryptodome>=3.9.7
+
+# pydis
+tables>=3.6.1
