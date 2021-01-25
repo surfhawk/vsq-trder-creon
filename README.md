@@ -11,4 +11,4 @@
 2. BRK_MESSAGE 지원
   
 ### 지원 환경
-- Python 3.7 + 
+- Python 3.7 + (only 32bit)
