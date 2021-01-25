@@ -1,0 +1,75 @@
+@startuml
+title "vsq_trder_creon"  UseCase Diagram\n
+left to right direction
+
+actor "User Strategyer" as ust
+note right of (ust)
+    User Strategyer는
+    모든 UseCase를 사용함
+end note
+
+actor "User Backtester" as ubt
+
+package "trder <Request-Response>" as trder_rr{
+    usecase "1A. 계좌 기본 정보 얻기" as 1A
+    usecase "1B1. 종목 매수/매도 주문 요청" as 1B1
+    usecase "1B2 종목 정정/취소 주문 요청" as 1B2
+    usecase "1C. 기접수 주문건 체결/미체결 정보 얻기" as 1C
+    usecase "1D. 현재 계좌의 현물 잔고 얻기" as 1D
+    usecase "1E. 전 종목의 마스터 정보 얻기" as 1E
+    usecase "1F. 특정 종목 리스트로 현재가 및 호가 얻기" as 1F
+    usecase "1G. 현재 장 운영 상태정보 얻기" as 1G
+    usecase "1H. 특정 종목에 대한 요청기간 차트 얻기" as 1H
+}
+
+package "trder <Subscribe-Push>" as trder_sp{
+    usecase "2A. 특정 종목들의 체결 정보 '구독'" as 2A
+}
+
+package "CreonPlusAPI" as cpa {
+    usecase "COM"
+}
+trder_rr --> cpa
+trder_sp --> cpa
+
+package "data_manager" as dm {
+    usecase "3A. 데이터를 수집하여 누적 저장" as 3A
+    usecase "3B. 누적 저장된 종목 데이터 로드" as 3B
+    usecase "3E. 특정 종목 리스트를 등록 (수집 대상)" as 3E
+}
+3A -> 3E
+3A --> 1E
+3A --> 1H: 3C
+3A --> 2A: 3D
+3B --> 3A
+3E --> 1E
+
+package "L1Strategyer" as l1st{
+    usecase "4A. 기본적인 장 운영의 시간대에 따른 운영 Template" as 4A
+    usecase "4B. 장 운영의 시간대를 한 곳에서 변경" as 4B
+    usecase "4C1. 스탑어닝/로스 (종목, 조건) 등록 및 해제" as 4C1
+    usecase "4C2. 스탑어닝/로스 운영 (자동매매)" as 4C2
+}
+4A --> 4B
+4A --> 1G
+4C1 --> 4C2
+4C2 --> 1D
+4C2 --> 1E
+4C2 --> 1F
+4C2 --> 1B1
+4C2 --> 1C
+4C2 --> 1B2
+4C2 --> 2A
+
+ust --> trder_rr
+ust --> trder_sp
+ust --> 4B
+ust --> 4C1
+ust --> l1st
+ust --> dm
+
+
+ubt ..> 3B
+ubt ..> 3E
+
+@enduml

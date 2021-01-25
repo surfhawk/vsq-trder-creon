@@ -1,6 +1,6 @@
 from datetime import datetime as dt
 from collections import OrderedDict as odict
-from vsq_trder_creon.base_tr import CpSession, CpComUtil
+from vsq_trder_creon.trder.base_tr import CpSession, CpComUtil
 import abc
 import time
 import numpy as np
